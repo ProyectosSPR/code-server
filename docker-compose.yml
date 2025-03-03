@@ -1,4 +1,3 @@
-
 services:
   code-server:
     image: codercom/code-server:4.16.0
@@ -8,6 +7,7 @@ services:
       - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
+      - ./code-server-config:/home/coder/.config/code-server  # 🔹 Guardar configuración
     ports:
       - "8080:8080"
     restart: always
@@ -27,3 +27,4 @@ services:
 volumes:
   nginx_data:
   nginx_letsencrypt:
+  code-server-config:  # 🔹 Agregar volumen para configuración de code-server
