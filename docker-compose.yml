@@ -7,7 +7,7 @@ services:
       - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
-      - ./code-server-config:/home/coder/.config/code-server  # 🔹 Guardar configuración
+      - ./code-server-config:/root/.config/code-server  # 🔹 Guardar configuración
     ports:
       - "8080:8080"
     restart: always
