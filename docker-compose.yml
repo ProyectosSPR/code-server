@@ -8,15 +8,15 @@ services:
       - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
-      - ./code-server-config:/root/.config/code-server  # 🔹 Configuración general
-      - ./code-server-settings:/root/.local/share/code-server/User  # 🔹 Configuración de temas y usuario
-      - ./code-server-extensions:/root/.local/share/code-server/extensions  # 🔹 Extensiones de VS Code
-      - /var/run/docker.sock:/var/run/docker.sock  # 🔹 Montar el socket de Docker del host
+      - ./code-server-config:/root/.config/code-server
+      - ./code-server-settings:/root/.local/share/code-server/User
+      - ./code-server-extensions:/root/.local/share/code-server/extensions
+      - /var/run/docker.sock:/var/run/docker.sock  # Montar el socket de Docker
     ports:
       - "8080:8080"
     restart: always
-    command: >
-      sh -c "chmod 666 /var/run/docker.sock && code-server"
+    entrypoint: ["/bin/sh", "-c", "chmod 666 /var/run/docker.sock && /usr/bin/code-server"]
+
 
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
