@@ -1,0 +1,28 @@
+
+services:
+  code-server:
+    image: codercom/code-server:latest
+    container_name: code-server
+    environment:
+      - PASSWORD=Sergio55
+    volumes:
+      - ./code-server:/home/coder/project
+    ports:
+      - "8080:8080"
+    restart: always
+
+  nginx-proxy-manager:
+    container_name: nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"    # HTTP
+      - "443:443"  # HTTPS
+      - "81:81"    # Panel de administración de NPM
+    volumes:
+      - nginx_data:/data
+      - nginx_letsencrypt:/etc/letsencrypt
+
+volumes:
+  nginx_data:
+  nginx_letsencrypt:
