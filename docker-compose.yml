@@ -6,8 +6,6 @@ services:
     user: root
     environment:
       - PASSWORD=Sergio55
-    environment:
-      - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
     ports:
