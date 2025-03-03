@@ -3,6 +3,9 @@ services:
   code-server:
     image: codercom/code-server:4.16.0
     container_name: code-server
+    user: root
+    environment:
+      - PASSWORD=Sergio55
     environment:
       - PASSWORD=Sergio55
     volumes:
