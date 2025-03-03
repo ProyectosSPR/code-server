@@ -1,4 +1,3 @@
-
 services:
   code-server:
     image: codercom/code-server:4.16.0
@@ -8,15 +7,13 @@ services:
       - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
-      - ./code-server-config:/root/.config/code-server
-      - ./code-server-settings:/root/.local/share/code-server/User
-      - ./code-server-extensions:/root/.local/share/code-server/extensions
-      - /var/run/docker.sock:/var/run/docker.sock  # Montar el socket de Docker
+      - ./code-server-config:/root/.config/code-server  # 🔹 Configuración general
+      - ./code-server-settings:/root/.local/share/code-server/User  # 🔹 Configuración de temas y usuario
+      - ./code-server-extensions:/root/.local/share/code-server/extensions  # 🔹 Extensiones de VS Code
+      - /var/run/docker.sock:/var/run/docker.sock  # 🔹 MONTAR EL SOCKET DE DOCKER
     ports:
       - "8080:8080"
     restart: always
-    entrypoint: ["/bin/sh", "-c", "chmod 666 /var/run/docker.sock && /usr/bin/code-server"]
-
 
   nginx-proxy-manager:
     container_name: nginx-proxy-manager
@@ -35,4 +32,4 @@ volumes:
   nginx_letsencrypt:
   code-server-config:
   code-server-settings:  # 🔹 Nuevo volumen para temas y configuraciones
-  code-server-extensions:  # 🔹 Volumen para extensiones como lo modificarias para que se generara el socket
+  code-server-extensions:  # 🔹 Volumen para extensiones
