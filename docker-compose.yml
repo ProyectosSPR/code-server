@@ -7,7 +7,9 @@ services:
       - PASSWORD=Sergio55
     volumes:
       - ./code-server:/home/coder/project
-      - ./code-server-config:/root/.config/code-server  # 🔹 Guardar configuración
+      - ./code-server-config:/root/.config/code-server  # 🔹 Configuración general
+      - ./code-server-settings:/root/.local/share/code-server/User  # 🔹 Configuración de temas y usuario
+      - ./code-server-extensions:/root/.local/share/code-server/extensions  # 🔹 Extensiones de VS Code
     ports:
       - "8080:8080"
     restart: always
@@ -17,9 +19,9 @@ services:
     image: jc21/nginx-proxy-manager:latest
     restart: unless-stopped
     ports:
-      - "80:80"    # HTTP
-      - "443:443"  # HTTPS
-      - "81:81"    # Panel de administración de NPM
+      - "80:80"
+      - "443:443"
+      - "81:81"
     volumes:
       - nginx_data:/data
       - nginx_letsencrypt:/etc/letsencrypt
@@ -27,4 +29,6 @@ services:
 volumes:
   nginx_data:
   nginx_letsencrypt:
-  code-server-config:  # 🔹 Agregar volumen para configuración de code-server
+  code-server-config:
+  code-server-settings:  # 🔹 Nuevo volumen para temas y configuraciones
+  code-server-extensions:  # 🔹 Volumen para extensiones
