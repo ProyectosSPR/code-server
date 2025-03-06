@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   code-server:
     image: codercom/code-server:4.16.0
@@ -11,13 +13,13 @@ services:
       - ./code-server-config:/root/.config/code-server
       - ./code-server-settings:/root/.local/share/code-server/User
       - ./code-server-extensions:/root/.local/share/code-server/extensions
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock  # 🔹 Permite usar Docker dentro del contenedor
     ports:
       - "8080:8080"
     restart: always
     entrypoint: >
       sh -c "apt update &&
-             apt install -y python3 python3-pip nodejs npm &&
+             apt install -y python3 python3-pip nodejs npm docker-ce-cli &&
              npm install -g yarn &&
              exec code-server --bind-addr 0.0.0.0:8080"
 
@@ -39,4 +41,3 @@ volumes:
   code-server-config:
   code-server-settings:
   code-server-extensions:
-  
