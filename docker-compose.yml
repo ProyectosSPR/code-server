@@ -19,25 +19,10 @@ services:
     restart: always
     entrypoint: >
       sh -c "apt update &&
-             apt install -y python3 python3-pip nodejs npm docker-ce-cli &&
+             apt install -y apt-transport-https ca-certificates curl gnupg lsb-release &&
+             curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg &&
+             echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bullseye stable' > /etc/apt/sources.list.d/docker.list &&
+             apt update &&
+             apt install -y docker-ce-cli python3 python3-pip nodejs npm &&
              npm install -g yarn &&
              exec code-server --bind-addr 0.0.0.0:8080"
-
-  nginx-proxy-manager:
-    container_name: nginx-proxy-manager
-    image: jc21/nginx-proxy-manager:latest
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "81:81"
-    volumes:
-      - nginx_data:/data
-      - nginx_letsencrypt:/etc/letsencrypt
-
-volumes:
-  nginx_data:
-  nginx_letsencrypt:
-  code-server-config:
-  code-server-settings:
-  code-server-extensions:
